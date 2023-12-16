@@ -1,0 +1,12 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: my-knative-service
+spec:
+  template:
+    spec:
+      containers:
+        - image: my-container-image
+  # Add Kourier annotations
+  annotations:
+    networking.knative.dev/ingress.class: kourier.ingress.networking.knative.dev
