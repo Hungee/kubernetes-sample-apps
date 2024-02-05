@@ -10,10 +10,20 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - https://raw.githubusercontent.com/digitalocean/marketplace-kubernetes/master/stacks/knative/assets/manifests/knative-serving.yaml
+  # - https://github.com/knative/serving/releases/download/knative-v1.12.3/serving-crds.yaml
+  - resources/knative-serving-crd.yaml
   - resources/kn-cluster-issuer.yaml # creates the `kn-letsencrypt-http01-issuer` cluster issuer
-patches:
-  - patches/net-certmanager-install.yaml
-  - patches/certmanager-config.yaml
+# patchesStrategicMerge:
+  # - target:
+  #     group: apps
+  #     version: v1
+  #     kind: Deployment
+  #     name: cert-manager
+  #     namespace: cert-manager
+  #   path: patches/net-certmanager-install.yaml
+
+
+  # - patches/net-certmanager-install.yaml
+  # - patches/certmanager-config.yaml
   - patches/domain-config.yaml
-  - patches/network-config.yaml
+  # - patches/network-config.yaml
