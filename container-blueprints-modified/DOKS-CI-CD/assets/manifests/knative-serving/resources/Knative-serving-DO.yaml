@@ -1,0 +1,17 @@
+# from https://marketplace.digitalocean.com/apps/knative
+
+
+apiVersion: operator.knative.dev/v1alpha1
+kind: KnativeServing
+metadata:
+  name: knative-serving
+spec:
+  version: "1.11.6"
+  ingress:
+    kourier:
+      enabled: true
+  config:
+    network:
+      ingress-class: "kourier.ingress.networking.knative.dev"
+
+      

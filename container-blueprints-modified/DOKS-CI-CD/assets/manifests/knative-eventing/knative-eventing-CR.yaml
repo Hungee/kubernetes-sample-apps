@@ -1,0 +1,13 @@
+# ADDING THE CR NAMEPACE FOR EVENTING AS PER INSTRUCTIONS 
+# https://marketplace.digitalocean.com/apps/knative
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: knative-eventing
+---
+apiVersion: operator.knative.dev/v1beta1
+kind: KnativeEventing
+metadata:
+  name: knative-eventing
+  namespace: knative-eventing

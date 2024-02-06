@@ -1,0 +1,29 @@
+# https://knative.dev/docs/install/operator/knative-with-operators/#install-the-networking-layer
+# ADDING THE KOURIER 
+# 
+
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: knative-serving
+# ---
+# apiVersion: operator.knative.dev/v1beta1
+# kind: KnativeServing
+# metadata:
+#   name: knative-serving
+#   namespace: knative-serving
+
+
+apiVersion: operator.knative.dev/v1beta1
+kind: KnativeServing
+metadata:
+  name: knative-serving
+  namespace: knative-serving
+spec:
+  version: "1.11.6"
+  ingress:
+    kourier:
+      enabled: true
+  config:
+    network:
+      ingress-class: "kourier.ingress.networking.knative.dev"
