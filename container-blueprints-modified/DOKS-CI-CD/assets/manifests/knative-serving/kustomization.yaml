@@ -14,7 +14,7 @@ resources:
   # - resources/knative-serving-crd.yaml # changing to the cr that worked 
   - resources/knative-serving-CR.yaml
   - resources/kn-cluster-issuer.yaml # creates the `kn-letsencrypt-http01-issuer` cluster issuer
-# patchesStrategicMerge:
+patchesStrategicMerge:
   # - target:
   #     group: apps
   #     version: v1
@@ -24,7 +24,7 @@ resources:
   #   path: patches/net-certmanager-install.yaml
 
 
-  # - patches/net-certmanager-install.yaml
-  # - patches/certmanager-config.yaml
+  - patches/net-certmanager-install.yaml # MANULLY APPLIED
+  - patches/certmanager-config.yaml
   - patches/domain-config.yaml
-  # - patches/network-config.yaml
+  - patches/network-config.yaml

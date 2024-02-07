@@ -1,0 +1,39 @@
+# output from build . to execute
+
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: kn-letsencrypt-http01-issuer
+spec:
+  acme:
+    privateKeySecretRef:
+      name: kn-letsencrypt
+    server: https://acme-v02.api.letsencrypt.org/directory
+    solvers:
+    - http01:
+        ingress:
+          class: kourier
+---
+apiVersion: operator.knative.dev/v1beta1
+kind: KnativeServing
+metadata:
+  name: knative-serving
+  namespace: knative-serving
+spec:
+  additionalManifests:
+  - URL: https://github.com/knative/net-certmanager/releases/download/knative-v1.4.0/release.yaml
+  config:
+    certmanager:
+      issuerRef: |
+        kind: ClusterIssuer
+        name: kn-letsencrypt-http01-issuer
+    domain:
+      hungee.cloud: ""
+    network:
+      auto-tls: Enabled
+      http-protocol: Enabled
+      ingress-class: kourier.ingress.networking.knative.dev
+  ingress:
+    kourier:
+      enabled: true
+  version: 1.11.6
